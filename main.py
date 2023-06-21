@@ -12,6 +12,9 @@ from google.cloud import speech_v1 as speech
 import pyaudio
 from six.moves import queue
 
+
+import tale
+
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"speechtest-179106-8dcecbf6829a.json"
 
 # Audio recording parameters
@@ -28,6 +31,12 @@ def get_current_time():
     """Return Current Time in MS."""
 
     return int(round(time.time() * 1000))
+
+# Use this to output voice
+def output_voice(content,speed):
+    voice = wincl.Dispatch("SAPI.SpVoice")
+    voice.Rate = speed
+    voice.Speak(content)
 
 class ResumableMicrophoneStream:
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -198,7 +207,7 @@ def listen_print_loop(responses, stream):
             stream.is_final_end_time = stream.result_end_time
             stream.last_transcript_was_final = True
             
-            if "できた" in transcript :
+            if "おやすみ" in transcript :
                 sys.stdout.write("やった")
                 say("よくできました")
                 # stream.closed= True
