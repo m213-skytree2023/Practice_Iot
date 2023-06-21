@@ -12,6 +12,7 @@ from google.cloud import speech_v1 as speech
 import pyaudio
 from six.moves import queue
 import subprocess
+import fan
 
 
 import tale
@@ -216,7 +217,19 @@ def listen_print_loop(responses, stream):
                 output_voice("ではおやすみなさい", -1)                
                 subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?led=white,off")
 
-
+            if "秒" in transcript and "扇風機つけて" in transcript:
+                numInTranscript = re.findall(r"\d+\.?\d*", transcript)
+                if not len(numInTranscript):
+                    output_voice("時間を指定してください", -1)
+                else:
+                    time = int(numInTranscript[0])*100
+                    print(time)
+                    start = get_current_time()
+                    print(start)
+                    status = True
+                    while get_current_time()-start < time:
+                        status = fan.rotate_fan(status)
+                        
             if "またね" in transcript :
                 sys.stdout.write("バイバイ")
                 say("Good Bye")   
