@@ -11,6 +11,7 @@ import os
 from google.cloud import speech_v1 as speech
 import pyaudio
 from six.moves import queue
+import subprocess
 
 
 import tale
@@ -208,11 +209,12 @@ def listen_print_loop(responses, stream):
             stream.last_transcript_was_final = True
             
             if "おやすみ" in transcript :
-                sys.stdout.write("やった")
-                say("よくできました")
-                # stream.closed= True
-            
-                # stream.closed= True
+                subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?servo=165")
+                output_voice("では今夜の物語を始めます", -1)
+                tale.tell_tale()
+                subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?servo=45")
+                output_voice("ではおやすみなさい", -1)                
+                subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?led=white,off")
 
 
             if "またね" in transcript :

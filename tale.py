@@ -9,7 +9,7 @@ from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
 API_URL = "https://api.openai.com/v1/chat/completions"
-API_KEY = "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"
+API_KEY = "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"
 
 def chat(text,
          messages=None,
@@ -42,8 +42,10 @@ def chat(text,
     }
     # APIを叩く、streamをTrueに
     resp = requests.post(API_URL, headers=headers, json=payload, stream=True, verify=False)
+    print(resp)
     # 返答を受け取り、逐次yield
     response_text = ''
+    # print("resp")
     for chunk in resp.iter_lines():
         try:
             j = json.loads(chunk.decode()[6:])
@@ -71,7 +73,7 @@ talebook = ["人魚姫","みにくいアヒルの子","ティンかいかくと�
 # Tell a tale in voice output
 def tell_tale():
     
-    title = talebook[random.randint(0, 10)]
+    title = talebook[random.randint(0, 9)]
     
     ask = "眠る前に、子供に"+title+"の物語話しましょう,200字内で"
     print(ask)
@@ -83,4 +85,3 @@ def tell_tale():
     
     print(tale)
     say(tale)
-    
