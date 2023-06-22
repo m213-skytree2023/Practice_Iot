@@ -14,7 +14,7 @@ from six.moves import queue
 import subprocess
 import fan
 import alarm
-
+import aircondition
 import tale
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"speechtest-179106-8dcecbf6829a.json"
@@ -231,6 +231,12 @@ def listen_print_loop(responses, stream):
                     status = True
                     while get_current_time()-start < time:
                         status = fan.rotate_fan(status)
+            
+            #Air
+            if "気温" in transcript or "何度" in transcript:
+                #print(f'ただ今の気温は{aircondition.get_air()[0]}度です。')
+                output_voice(f'ただ今の気温は{aircondition.get_air()[0]}度です。', -1)
+            
             
             #Alarm
             if "起こして" in transcript:
