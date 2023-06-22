@@ -209,6 +209,7 @@ def listen_print_loop(responses, stream):
             stream.is_final_end_time = stream.result_end_time
             stream.last_transcript_was_final = True
             
+            #Story
             if "おやすみ" in transcript :
                 subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?servo=165")
                 output_voice("では今夜の物語を始めます", -1)
@@ -217,6 +218,7 @@ def listen_print_loop(responses, stream):
                 output_voice("ではおやすみなさい", -1)                
                 subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?led=white,off")
 
+            #Fan
             if "秒" in transcript and "扇風機つけて" in transcript:
                 numInTranscript = re.findall(r"\d+\.?\d*", transcript)
                 if not len(numInTranscript):
@@ -229,7 +231,10 @@ def listen_print_loop(responses, stream):
                     status = True
                     while get_current_time()-start < time:
                         status = fan.rotate_fan(status)
-                        
+            
+            
+            
+            #End  
             if "またね" in transcript :
                 sys.stdout.write("バイバイ")
                 say("Good Bye")   
