@@ -13,7 +13,7 @@ import pyaudio
 from six.moves import queue
 import subprocess
 import fan
-
+import alarm
 
 import tale
 
@@ -232,12 +232,26 @@ def listen_print_loop(responses, stream):
                     while get_current_time()-start < time:
                         status = fan.rotate_fan(status)
             
+            #Alarm
+            if "起こして" in transcript:
+                "定型文：〇時〇分に起こして。"
+                id_hour = transcript.find("時")
+                hour_ = transcript[:id_hour]
+                if not len(transcript.find("分")):
+                    minute_ = "0"
+                else:
+                    id_minute = transcript.find("分")
+                    minute_ = transcript[id_hour+1:id_minute]
+                alarm.set_alarm(hour_, minute_)
+                output_voice(f'{hour_}時{minute_}分にアラームを設定しました。',-1)
             
+            if "起きた" in transcript:
+                alarm.stop_alarm()  
             
             #End  
             if "またね" in transcript :
                 sys.stdout.write("バイバイ")
-                say("Good Bye")   
+                output_voice("Good Bye", -1)   
                 stream.closed= True
                 
             # Exit recognition if any of the transcribed phrases could be
