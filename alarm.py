@@ -31,3 +31,6 @@ def stop_alarm():
     subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?buzzer=off")
     subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.101:8000/?buzzer=off")
     subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.104:8000/?buzzer=off")
+    subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.103:8000/?led=white,off")
+    subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.101:8000/?led=white,off")
+    subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.104:8000/?led=white,off")
