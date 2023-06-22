@@ -237,13 +237,13 @@ def listen_print_loop(responses, stream):
                 "定型文：〇時〇分に起こして。"
                 id_hour = transcript.find("時")
                 hour_ = transcript[:id_hour]
-                if not len(transcript.find("分")):
+                if not len(str(transcript.find("分"))):
                     minute_ = "0"
                 else:
                     id_minute = transcript.find("分")
                     minute_ = transcript[id_hour+1:id_minute]
-                alarm.set_alarm(hour_, minute_)
                 output_voice(f'{hour_}時{minute_}分にアラームを設定しました。',-1)
+                alarm.set_alarm(hour_, minute_)
             
             if "起きた" in transcript:
                 alarm.stop_alarm()  
