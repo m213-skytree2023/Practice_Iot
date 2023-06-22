@@ -13,12 +13,13 @@ def task():
     subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.104:8000/?buzzer=on")
     subprocess.run(r"C:\Program Files\Google\Chrome\Application\chrome.exe -url http://192.168.0.104:8000/?led=white,on")
 
-def set_alarm(transcript = "15時25分に起こして。"):
+#transcript = "15時25分に起こして。"
+def set_alarm(hour_, minute_):
     dt_today = datetime.datetime.today()
-    id_hour = transcript.find("時")
-    id_minute = transcript.find("分")
-    hour_ = transcript[:id_hour]
-    minute_ = transcript[id_hour+1:id_minute]
+    # id_hour = transcript.find("時")
+    # id_minute = transcript.find("分")
+    # hour_ = transcript[:id_hour]
+    # minute_ = transcript[id_hour+1:id_minute]
     alarm_time = f"{dt_today.year}-{dt_today.month}-{dt_today.day} {hour_.zfill(2)}:{minute_.zfill(2)}:00"
     time_array = time.strptime(alarm_time, "%Y-%m-%d %H:%M:%S")
     time_stamp = int(time.mktime(time_array))*1000
